@@ -1,0 +1,8 @@
+name: php-movie-site
+recipe: lamp
+config:
+  php: 8.2
+  webroot: public
+services:
+  phpmyadmin:
+    type: phpmyadmin
