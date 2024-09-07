@@ -4,8 +4,8 @@ namespace App\Kernel\View;
 
 use App\Kernel\Auth\AuthInterface;
 use App\Kernel\Exceptions\ViewNotFoundException;
-use App\Kernel\Session\Session;
 use App\Kernel\Session\SessionInterface;
+use App\Kernel\Storage\StorageInterface;
 
 class View implements ViewInterface
 {
@@ -14,14 +14,23 @@ class View implements ViewInterface
      */
     public function __construct(
         private SessionInterface $session,
-        private AuthInterface $auth,
+        private AuthInterface    $auth,
+        private StorageInterface $storage,
     )
     {
     }
 
-    public function page(string $name, array $data = []): void
+    private string $title;
+
+    public function title() : string
     {
-        extract(array_merge($this->defaultData(),$data));
+        return $this->title;
+    }
+
+    public function page(string $name, array $data = [], string $title = ''): void
+    {
+        $this->title = $title;
+        extract(array_merge($this->defaultData(), $data));
 
         $viewPath = APP_PATH . "/views/pages/$name.php";
         if (!file_exists($viewPath)) {
@@ -57,6 +66,7 @@ class View implements ViewInterface
             'view' => $this,
             'session' => $this->session,
             'auth' => $this->auth,
+            'storage' => $this->storage
         ];
     }
 }

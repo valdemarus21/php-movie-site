@@ -45,9 +45,9 @@ abstract class Controller
     /**
      * @throws \Exception
      */
-    public function view(string $name, array $data = []): void
+    public function view(string $name, array $data = [], string $title = ''): void
     {
-        $this->view->page($name, $data);
+        $this->view->page($name, $data, $title);
     }
     public function db():DatabaseInterface
     {

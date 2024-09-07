@@ -12,8 +12,9 @@ class LoginController extends Controller
      */
     public function index(): void
     {
-        $this->view('login');
+        $this->view(name: 'login', title: 'Login');
     }
+
     public function login(): void
     {
 
@@ -21,14 +22,15 @@ class LoginController extends Controller
         $password = $this->request()->input('password');
 
 
-        if($this->getAuth()->attempt($email, $password)){
+        if ($this->getAuth()->attempt($email, $password)) {
 
-        $this->redirect('/');
+            $this->redirect('/');
         }
         $this->session()->set('error', 'Invalid credentials');
         $this->redirect('/login');
 
     }
+
     public function logout()
     {
         $this->getAuth()->logout();

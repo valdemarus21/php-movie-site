@@ -8,5 +8,9 @@ interface DatabaseInterface
 
     public function first(string $table, array $conditions = []): ?array;
 
-    public function get(string $table, array $conditions =[]);
+    public function get(string $table, array $conditions = [], array $order = [], int $limit = -1);
+
+    public function delete(string $table, array $conditions = []): void;
+
+    public function update(string $table, array $data, array $conditions = []): void;
 }
